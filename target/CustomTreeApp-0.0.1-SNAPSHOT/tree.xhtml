@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/css/style.css" type="text/css" />
+</h:head>
+<p:growl id="msgs" showDetail="true" life="2000" />
+
+<h:form id="frm">
+
+	<p:growl id="growl1" showSummary="true" showDetail="true"
+		autoUpdate="true" />
+
+	<p:tree id="tree1" value="#{treeBean.model}" var="node"
+		selectionMode="single" selection="#{treeBean.selectedNode}">
+
+		<p:treeNode type="node">
+			<h:outputText value="#{node}" />
+		</p:treeNode>
+		<p:treeNode type="leaf" icon="document-node">
+			<h:outputText value="#{node}" />
+		</p:treeNode>
+	</p:tree>
+
+</h:form>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+<hibernate-mapping>
+	<class name="com.entity.Employee" table="employee">
+		<id name="id" column="ID" type="long">
+			<generator class="native" />
+		</id>
+		<property name="Name" column="NAME" type="string"/>
+		<property name="Department" column="DEPARTMENT" type="string"/>
+		<property name="hireDate" column="HIRE_DATE" type="date"/>
+		<property name="Salary" column="SALARY" type="double"/>
+		
+	</class>
+</hibernate-mapping>

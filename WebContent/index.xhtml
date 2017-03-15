@@ -1,0 +1,113 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/css/style.css" type="text/css" />
+	<title>Register Employee</title>
+</h:head>
+<p:growl id="msgs" showDetail="true" life="2000" />
+
+<h:form id="frm" >
+
+
+    
+	<div id="empList">
+		<p:dataTable id="emps" var="emp" value="#{employeeBean.employees}"
+			editable="true" style="margin-bottom:20px">
+			<f:facet name="header">
+           Employees
+       </f:facet>
+
+			<p:ajax event="rowEdit" listener="#{employeeBean.onRowEdit}"
+				update=":msgs" />
+			<p:ajax event="rowEditCancel" listener="#{employeeBean.onRowCancel}"
+				update=":msgs" />
+
+			<p:column headerText="Name">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{emp.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText id="modelInput" value="#{emp.name}"
+							style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Depratments">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{emp.department}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{emp.department}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Salary">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{emp.salary}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{emp.salary}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Salary">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{emp.hireDate}" disabled="true" />
+					</f:facet>
+					<f:facet name="input">
+						<p:calendar value="#{emp.hireDate}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:32px">
+				<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+	</div>
+	 <p:commandButton value="Add Employee" type="button" onclick="PF('showdlg').show();" />
+	
+	  
+
+	<p:dialog header="Add Employee" id="empdlg" widgetVar="showdlg" modal="true"  resizable="false"
+		height="200">
+		<p:panelGrid columns="2" id="addemp"  >
+			<p:outputLabel value="Enter Employee Name:"></p:outputLabel>
+			<p:inputText value="#{employeeBean.employee.name}" required="true" requiredMessage="Please Enter Employee Name"></p:inputText>
+			<p:outputLabel value="Enter Employee Department:"></p:outputLabel>
+			<p:inputText value="#{employeeBean.employee.department}" required="true" requiredMessage="Please Enter Employee Department"> </p:inputText>
+			<p:outputLabel value="Enter Employee Hire Date:" ></p:outputLabel>
+			<p:calendar value="#{employeeBean.employee.hireDate}"></p:calendar>
+			<p:outputLabel value="Enter Employee Salary:"></p:outputLabel>
+			<p:inputText value="#{employeeBean.employee.salary}"></p:inputText>
+		<p:commandButton value="Save" actionListener="#{employeeBean.add}" update="emps" oncomplete="PF('showdlg').hide();"/>
+		<p:commandButton value="Cancel" onclick="PF('showdlg').hide();" />
+		</p:panelGrid>
+
+	</p:dialog>
+	<div id="panel"></div>
+	
+	<br/>
+
+	<p:tree id="tree1" value="#{treeBean.model}" var="node"
+		selectionMode="single" selection="#{treeBean.selectedNode}">
+
+		<p:treeNode type="node">
+			<h:outputText value="#{node}" />
+		</p:treeNode>
+		<p:treeNode type="leaf" icon="document-node">
+			<h:outputText value="#{node}" />
+		</p:treeNode>
+	</p:tree>
+</h:form>
+</html>
